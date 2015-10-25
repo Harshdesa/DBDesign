@@ -1,0 +1,224 @@
+/*
+Creator : Harsh Desai
+Net ID : hbd140030
+Description : DB Design Project
+
+*/
+
+
+import java.sql.*;
+
+public class CheckinBackEnd
+{
+
+	static Connection conn = null;
+	
+	public static String book_id;
+	public static int branch_id;
+	public static int Card_no;
+
+	//All the strings and arrays used to populate the JTable 
+	
+	static public void method_a()
+	{
+		String url = "jdbc:mysql://localhost:3306/";
+		String user = "root";
+		String password = "db123";
+
+		String ssn;
+		String firstName;
+		String lastName;
+		int salary;
+		int dno;
+
+		int i = 0;
+
+
+		
+		try {
+			conn = DriverManager.getConnection(url, user, password);
+			Statement stmt = conn.createStatement();
+			stmt.execute("use LIBRARY;");
+			String query = "SELECT Branch_id,Book_id,BOOK_LOANS.Card_no,Fname,Date_out,Due_date FROM BOOK_LOANS,BORROWER WHERE BOOK_LOANS.Card_no=BORROWER.Card_no AND Book_id LIKE" + "'%" +Checkin.book_id_name + "%'"+" AND Date_in IS NULL;";
+			ResultSet rs = stmt.executeQuery(query);
+					
+			while (rs.next()) {
+
+				/* Keep track of the line/tuple count */
+				
+
+				/* Populate Java field variables from MySQL columnLabel */
+				// Order of the following statements is not important
+				Checkin.rowData[i][0] = rs.getString("Branch_id");
+				Checkin.rowData[i][1] = rs.getString("Book_id");
+				Checkin.rowData[i][2] = rs.getString("Card_no");
+				Checkin.rowData[i][3] = rs.getString("Fname");
+				Checkin.rowData[i][4] = rs.getDate("Date_out");
+				Checkin.rowData[i][5] = rs.getDate("Due_date");
+
+				i++;
+			} // End while(rs.next())
+
+	
+			rs.close();
+			conn.close();
+			System.out.println("Success!!");
+
+		}
+
+		catch(SQLException ex) 
+		{
+			System.out.println("Error in connection: " + ex.getMessage());
+		}
+
+
+	}
+
+	static public void method_b()
+	{
+		String url = "jdbc:mysql://localhost:3306/";
+		String user = "root";
+		String password = "db123";
+
+		String ssn;
+		String firstName;
+		String lastName;
+		int salary;
+		int dno;
+
+		int i = 0;
+
+
+		
+		try {
+			conn = DriverManager.getConnection(url, user, password);
+			Statement stmt = conn.createStatement();
+			stmt.execute("use LIBRARY;");
+			String query = "SELECT Branch_id,Book_id,BOOK_LOANS.Card_no,Fname,Date_out,Due_date FROM BOOK_LOANS,BORROWER WHERE BOOK_LOANS.Card_no=BORROWER.Card_no AND fname LIKE" + "'%" +Checkin.borrower_name + "%'"+" AND Date_in IS NULL;";
+			ResultSet rs = stmt.executeQuery(query);
+					
+			while (rs.next()) {
+
+				/* Keep track of the line/tuple count */
+				
+
+				/* Populate Java field variables from MySQL columnLabel */
+				// Order of the following statements is not important
+				Checkin.rowData[i][0] = rs.getString("Branch_id");
+				Checkin.rowData[i][1] = rs.getString("Book_id");
+				Checkin.rowData[i][2] = rs.getString("Card_no");
+				Checkin.rowData[i][3] = rs.getString("Fname");
+				Checkin.rowData[i][4] = rs.getDate("Date_out");
+				Checkin.rowData[i][5] = rs.getDate("Due_date");
+
+				i++;
+			} // End while(rs.next())
+
+	
+			rs.close();
+			conn.close();
+			System.out.println("Success!!");
+
+		}
+
+		catch(SQLException ex) 
+		{
+			System.out.println("Error in connection: " + ex.getMessage());
+		}
+
+
+	}
+	
+	static public void method_c()
+	{
+		String url = "jdbc:mysql://localhost:3306/";
+		String user = "root";
+		String password = "db123";
+
+		String ssn;
+		String firstName;
+		String lastName;
+		int salary;
+		int dno;
+
+		int i = 0;
+
+
+		
+		try {
+			conn = DriverManager.getConnection(url, user, password);
+			Statement stmt = conn.createStatement();
+			stmt.execute("use LIBRARY;");
+			String query = "SELECT Branch_id,Book_id,BOOK_LOANS.Card_no,Fname,Date_out,Due_date FROM BOOK_LOANS,BORROWER WHERE BOOK_LOANS.Card_no=BORROWER.Card_no AND BOOK_LOANS.Card_no LIKE" + "'%" +Checkin.card_no_name + "%'"+" AND Date_in IS NULL;";
+			ResultSet rs = stmt.executeQuery(query);
+					
+			while (rs.next()) {
+
+				/* Keep track of the line/tuple count */
+				
+
+				/* Populate Java field variables from MySQL columnLabel */
+				// Order of the following statements is not important
+				Checkin.rowData[i][0] = rs.getString("Branch_id");
+				Checkin.rowData[i][1] = rs.getString("Book_id");
+				Checkin.rowData[i][2] = rs.getString("Card_no");
+				Checkin.rowData[i][3] = rs.getString("Fname");
+				Checkin.rowData[i][4] = rs.getDate("Date_out");
+				Checkin.rowData[i][5] = rs.getDate("Due_date");
+
+				i++;
+			} // End while(rs.next())
+
+	
+			rs.close();
+			conn.close();
+			System.out.println("Success!!");
+
+		}
+
+		catch(SQLException ex) 
+		{
+			System.out.println("Error in connection: " + ex.getMessage());
+		}
+
+
+	}
+
+	static public void method_d()
+	{
+		String url = "jdbc:mysql://localhost:3306/";
+		String user = "root";
+		String password = "db123";
+
+		try 
+		{
+		conn = DriverManager.getConnection(url, user, password);
+		Statement stmt = conn.createStatement();
+		stmt.execute("use LIBRARY;");	
+
+		String query = "UPDATE BOOK_LOANS SET Date_in=SYSDATE() WHERE Book_id = '" + book_id + "' AND Branch_id = " + branch_id +" AND Card_no = " + Card_no + " ;";
+
+				stmt.executeUpdate(query);
+
+
+				conn.close();
+				System.out.println("Success!!");
+
+				}
+
+			catch(SQLException ex) 
+			{
+				System.out.println("Error in connection: " + ex.getMessage());
+			}
+
+
+
+
+
+
+	}
+}
+			
+
+
+// INSERT INTO BOOK_LOANS (Book_id,Branch_id,Card_no,Date_out,Due_date) VALUES ('"1891620983"',2,1001,SYSDATE(),ADDDATE(SYSDATE(), INTERVAL 14 DAY));
